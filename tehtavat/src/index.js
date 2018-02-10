@@ -150,7 +150,7 @@ class App extends React.Component {
         <Notification message={this.state.success} />
         <div>
           rajaa näytettäviä: <input
-          value={this.state. filter}
+          value={this.state.filter}
           onChange={this.handleFilterChange} />
         </div>
         <h2>Lisää uusi</h2>
