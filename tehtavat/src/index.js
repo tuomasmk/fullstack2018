@@ -31,12 +31,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      persons: [
-/*        { name: 'Arto Hellas', number: '040-123456' },
-        { name: 'Martti Tienari', number: '040-123456' },
-        { name: 'Arto Järvinen', number: '040-123456' },
-        { name: 'Lea Kutvonen', number: '040-123456' }*/
-      ],
+      persons: [],
       newName: '',
       newNumber: '',
       filter: '',
@@ -44,37 +39,30 @@ class App extends React.Component {
       success: null
 
     }
-    console.log('constructor')
   }
 
   componentWillMount() {
-    console.log('will mount')
     personService
       .getAll()
       .then(persons => {
-        console.log('promise fulfilled')
         this.setState({ persons: persons })
       })
   }
 
   handleFilterChange = (event) => {
-    console.log(event.target.value)
     this.setState({ filter: event.target.value })
   }
 
   handleNameChange = (event) => {
-    console.log(event.target.value)
     this.setState({ newName: event.target.value })
   }
 
   handleNumberChange = (event) => {
-    console.log(event.target.value)
     this.setState({ newNumber: event.target.value })
   }
 
   lisaaPainettu = (event) => {
     event.preventDefault()
-    console.log('nappia painettu')
     let result = this.state.persons.map((person) => person.name).includes(this.state.newName)
     if (!result) {
       this.lisaaNimi()
@@ -106,7 +94,6 @@ class App extends React.Component {
         }, 5000)
       })
       .catch(error => {
-        console.log(error.response.data.error) 
         this.setState({
           newName: '',
           newNumber: '',
@@ -141,12 +128,10 @@ class App extends React.Component {
     }
 
   deleteNote = (id) => {
-    console.log('delete person with id: ', id)
     return () =>
       personService
         .Delete(id)
         .then(persons => {
-          console.log('persons', persons)
           this.setState({ 
             persons: this.state.persons.filter((person) => person.id !== id) 
           })
@@ -154,7 +139,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('render')
     const personsToShow = 
       this.state.filter === '' ?
         this.state.persons :
