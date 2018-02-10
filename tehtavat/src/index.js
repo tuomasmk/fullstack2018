@@ -52,7 +52,7 @@ class App extends React.Component {
     personService
       .getAll()
       .then(persons => {
-        console.log('prmise fulfilled')
+        console.log('promise fulfilled')
         this.setState({ persons: persons })
       })
   }
@@ -103,6 +103,17 @@ class App extends React.Component {
         })
         setTimeout(() => {
           this.setState({success: null})
+        }, 5000)
+      })
+      .catch(error => {
+        console.log(error.response.data.error) 
+        this.setState({
+          newName: '',
+          newNumber: '',
+          error: error.response.data.error
+        })
+        setTimeout(() => {
+          this.setState({error: null})
         }, 5000)
       })
   }
